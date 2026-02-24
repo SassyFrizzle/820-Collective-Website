@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — 820 Collective</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 6rem 5rem 4rem;
+      border-bottom: 1px solid #1e1e1e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: 'WORK';
+      position: absolute;
+      right: -1rem;
+      bottom: -2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18vw;
+      color: #111;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h1 span { color: var(--red); }
+
+    .page-hero p {
+      max-width: 520px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CLARITY CTA ── */
+    .clarity-bar {
+      padding: 2.5rem 5rem;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .clarity-bar p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .clarity-bar strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ── SERVICE SECTIONS ── */
+    .service-section {
+      padding: 5rem;
+      border-bottom: 1px solid #1e1e1e;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .service-section:nth-child(even) {
+      background: #0d0d0d;
+    }
+
+    .service-left .service-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .service-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .service-left .red-line {
+      margin-top: 1.5rem;
+    }
+
+    .service-right p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-right h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .how-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .how-list li {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--muted);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .how-list li::before {
+      content: '→';
+      color: var(--red);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── TAGLINE ROW ── */
+    .tagline-row {
+      padding: 4rem 5rem;
+      background: var(--red);
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tagline-word {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 4rem);
+      letter-spacing: 0.05em;
+    }
+
+    .tagline-dot {
+      width: 8px;
+      height: 8px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero, .service-section, .clarity-bar, .tagline-row { padding: 3rem 1.5rem; }
+      .service-section { grid-template-columns: 1fr; gap: 2rem; }
+      .tagline-row { gap: 1.5rem; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">820 <span>COLLECTIVE</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="network.html">Creative Network</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <p class="section-label anim-1">— Services</p>
+  <h1 class="anim-2">Brand strategy,<br>creative direction,<br>and <span>visibility</span> support.</h1>
+  <p class="anim-3">Built around you. Not a formula. 820 Collective exists because small creators and brands don't actually need "more marketing" — they need clarity, visibility, and a strategy that makes sense for where they are.</p>
+</section>
+
+<div class="clarity-bar" id="clarity">
+  <p><strong>Not sure what you need yet?</strong> Perfect. Book a Clarity Session to get started.</p>
+  <a href="mailto:hello@the820co.com?subject=Clarity Session" class="btn btn-red">Book a Clarity Call</a>
+</div>
+
+<!-- SERVICE 01 -->
+<section class="service-section">
+  <div class="service-left anim-2">
+    <div class="service-num">01</div>
+    <h2>Brand Strategy & Identity</h2>
+    <div class="red-line" style="margin-top:1.5rem;"></div>
+  </div>
+  <div class="service-right anim-3">
+    <p>We help you clearly define what you do, who it's for, and why it matters — so your brand stops feeling scattered and starts feeling consistent.</p>
+    <p>Together we sharpen your positioning, messaging, and voice so that your website, socials, and marketing all sound like the same person.</p>
+    <h4>How this shows up</h4>
+    <ul class="how-list">
+      <li>Clarifying what you actually do, who it's for, and how to talk about it — so your website, pitch, and bios stop sounding generic or overexplained.</li>
+      <li>Creating a clear brand foundation (positioning, messaging, tone) that guides design decisions, content creation, and future hires or collaborators.</li>
+      <li>Aligning visuals, language, and strategy so you're not rebuilding or re-explaining your brand every time a new project, launch, or opportunity comes up.</li>
+    </ul>
+    <div style="margin-top:2rem;">
+      <a href="mailto:hello@the820co.com?subject=Brand Strategy Inquiry" class="btn btn-outline">Start the Conversation</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE 02 -->
+<section class="service-section">
+  <div class="service-left anim-2">
+    <div class="service-num">02</div>
+    <h2>Creative & Project Consulting</h2>
+    <div class="red-line" style="margin-top:1.5rem;"></div>
+  </div>
+  <div class="service-right anim-3">
+    <p>If you have ideas but need a plan — or you're stuck mid-project — we help you turn the chaos into a clear next step. We support idea development, launch planning, and decision making so you can move forward with confidence.</p>
+    <p>Think of it as strategy + accountability + a brain that knows how to connect the dots. You might have ideas, half-formed plans, or a project that's been sitting longer than you'd like — but no clear path forward. This is for that in-between space.</p>
+    <p>We help you sort through the noise, identify what actually matters right now, and turn uncertainty into a clear next step. Sometimes, all we need is a push in the right direction.</p>
+    <div style="margin-top:2rem;">
+      <a href="mailto:hello@the820co.com?subject=Project Consulting Inquiry" class="btn btn-outline">Schedule a Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE 03 -->
+<section class="service-section">
+  <div class="service-left anim-2">
+    <div class="service-num">03</div>
+    <h2>Social Media Strategy & Management</h2>
+    <div class="red-line" style="margin-top:1.5rem;"></div>
+  </div>
+  <div class="service-right anim-3">
+    <p>We take the guesswork out of what to post and how to say it by building a content plan that matches your goals and your real-life capacity.</p>
+    <p>You'll get strategic direction for visuals and captions, plus light posting support if you want it. The goal is consistency and clarity — not burnout.</p>
+    <div style="margin-top:2rem;">
+      <a href="mailto:hello@the820co.com?subject=Social Media Strategy Inquiry" class="btn btn-outline">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE 04 -->
+<section class="service-section">
+  <div class="service-left anim-2">
+    <div class="service-num">04</div>
+    <h2>Visibility & PR Support</h2>
+    <div class="red-line" style="margin-top:1.5rem;"></div>
+  </div>
+  <div class="service-right anim-3">
+    <p>We help you communicate your story in a way that feels natural, confident, and ready for the public. From bios to campaign messaging to launch announcements and brand storytelling — we make sure your words match your value.</p>
+    <p>This is visibility support that's intentional.</p>
+    <div style="margin-top:2rem;">
+      <a href="mailto:hello@the820co.com?subject=Visibility & PR Inquiry" class="btn btn-outline">Start the Conversation</a>
+    </div>
+  </div>
+</section>
+
+<div class="tagline-row">
+  <span class="tagline-word">MESSAGE</span>
+  <div class="tagline-dot"></div>
+  <span class="tagline-word">MOMENT</span>
+  <div class="tagline-dot"></div>
+  <span class="tagline-word">MOMENTUM</span>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">820 <span>COLLECTIVE</span></a>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="network.html">Network</a>
+  </div>
+  <div class="footer-right">
+    <a href="mailto:hello@the820co.com">hello@the820co.com</a>
+    <a href="https://instagram.com/the820co" target="_blank">@the820co</a>
+  </div>
+  <div class="footer-copy">© 2025 The 820 Collective. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

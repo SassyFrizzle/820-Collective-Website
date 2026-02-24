@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Network — 820 Collective</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 6rem 5rem 4rem;
+      border-bottom: 1px solid #1e1e1e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: 'NETWORK';
+      position: absolute;
+      right: -2rem;
+      bottom: -2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14vw;
+      color: #111;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .page-hero h1 span { color: var(--red); }
+
+    .page-hero p {
+      max-width: 560px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── WHAT WE'RE LOOKING FOR ── */
+    .looking-for {
+      padding: 5rem;
+      border-bottom: 1px solid #1e1e1e;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    .looking-for h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .looking-for p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .talent-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #1e1e1e;
+    }
+
+    .talent-type {
+      background: var(--black);
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: background 0.2s;
+    }
+
+    .talent-type:hover { background: #0d0d0d; }
+
+    .talent-type::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── FORM SECTION ── */
+    .form-section {
+      padding: 5rem;
+      background: #0d0d0d;
+    }
+
+    .form-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .form-section h2 span { color: var(--red); }
+
+    .form-section .sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    .network-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 800px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      color: var(--white);
+      padding: 0.85rem 1rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--red);
+    }
+
+    .form-group select option { background: #111; }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+    }
+
+    /* ── JOB OPENINGS ── */
+    .jobs-section {
+      padding: 5rem;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .jobs-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1;
+      margin-bottom: 3rem;
+    }
+
+    .job-card {
+      border: 1px solid #1e1e1e;
+      padding: 2.5rem;
+      margin-bottom: 1px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .job-card:hover { background: #0d0d0d; }
+
+    .job-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-type {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    @media (max-width: 768px) {
+      .page-hero, .looking-for, .form-section, .jobs-section { padding: 3rem 1.5rem; }
+      .looking-for { grid-template-columns: 1fr; gap: 2rem; }
+      .network-form { grid-template-columns: 1fr; }
+      .talent-types { grid-template-columns: 1fr; }
+      .job-card { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">820 <span>COLLECTIVE</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="network.html" class="active">Creative Network</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <p class="section-label anim-1">— Creative Network</p>
+  <h1 class="anim-2">The 820 Collective<br><span>Creative Network.</span></h1>
+  <p class="anim-3">A curated group of creatives and service providers we collaborate with on project-based work. From photographers and videographers to designers, stylists, editors, and beyond — this network exists to connect the right talent to the right opportunity.</p>
+</section>
+
+<section class="looking-for">
+  <div class="anim-2">
+    <p class="section-label">— Who We're Looking For</p>
+    <h2>Right talent.<br>Right opportunity.</h2>
+    <p style="margin-top:1rem;">We're building a trusted roster of creative professionals across disciplines. When projects come in, we pull from the network. Simple as that.</p>
+  </div>
+  <div class="talent-types anim-3">
+    <div class="talent-type">Photographers</div>
+    <div class="talent-type">Videographers</div>
+    <div class="talent-type">Graphic Designers</div>
+    <div class="talent-type">Stylists</div>
+    <div class="talent-type">Video Editors</div>
+    <div class="talent-type">Copywriters</div>
+    <div class="talent-type">Social Media Mgrs</div>
+    <div class="talent-type">Event Coordinators</div>
+    <div class="talent-type">Web Developers</div>
+    <div class="talent-type">& Beyond</div>
+  </div>
+</section>
+
+<section class="form-section">
+  <p class="section-label">— Join the Network</p>
+  <h2>Get on the <span>820 Roster.</span></h2>
+  <p class="sub">Creative pro? Fill out the form below and we'll be in touch when the right opportunity comes up.</p>
+
+  <form class="network-form" action="mailto:hello@the820co.com" method="post" enctype="text/plain">
+    <div class="form-group">
+      <label for="company">Company / Studio Name</label>
+      <input type="text" id="company" name="company" placeholder="Your business name">
+    </div>
+    <div class="form-group">
+      <label for="contact">Point of Contact</label>
+      <input type="text" id="contact" name="contact" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="hello@yourbrand.com">
+    </div>
+    <div class="form-group">
+      <label for="discipline">Your Discipline</label>
+      <select id="discipline" name="discipline">
+        <option value="">Select your specialty...</option>
+        <option>Photography</option>
+        <option>Videography / Film</option>
+        <option>Graphic Design</option>
+        <option>Styling</option>
+        <option>Video Editing</option>
+        <option>Copywriting</option>
+        <option>Social Media Management</option>
+        <option>Event Coordination</option>
+        <option>Web Development</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group full">
+      <label for="portfolio">Portfolio / Website</label>
+      <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
+    </div>
+    <div class="form-group full">
+      <label for="message">Tell us about your work</label>
+      <textarea id="message" name="message" placeholder="Brief overview of your experience, style, and the kind of projects you love..."></textarea>
+    </div>
+    <div class="form-submit">
+      <button type="submit" class="btn btn-red">Submit to the Roster</button>
+    </div>
+  </form>
+</section>
+
+<section class="jobs-section">
+  <p class="section-label">— Opportunities</p>
+  <h2>Job Openings</h2>
+  <p style="color:var(--muted); margin-bottom:2.5rem; font-size:0.9rem;">As a growing startup, opportunities arise often. Check back for updates.</p>
+
+  <div class="job-card">
+    <div>
+      <div class="job-title">Marketing & Branding Intern</div>
+      <div class="job-type">Internship — Remote / Hybrid</div>
+    </div>
+    <a href="mailto:hello@the820co.com?subject=Marketing & Branding Intern Application" class="btn btn-outline-red">Apply Now</a>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">820 <span>COLLECTIVE</span></a>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="network.html">Network</a>
+  </div>
+  <div class="footer-right">
+    <a href="mailto:hello@the820co.com">hello@the820co.com</a>
+    <a href="https://instagram.com/the820co" target="_blank">@the820co</a>
+  </div>
+  <div class="footer-copy">© 2025 The 820 Collective. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
