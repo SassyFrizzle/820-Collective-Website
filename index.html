@@ -6,236 +6,35 @@
   <title>820 Collective — Strategy & Visibility</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── HERO ── */
-    .hero {
-      min-height: 92vh;
-      padding: 6rem 5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '820';
-      position: absolute;
-      right: -3rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 32vw;
-      color: #111;
-      line-height: 1;
-      z-index: 0;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 9vw, 9rem);
-      line-height: 0.93;
-      letter-spacing: 0.02em;
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-    }
-
-    .hero-headline em {
-      font-style: normal;
-      color: var(--red);
-    }
-
-    .hero-sub {
-      max-width: 500px;
-      margin-top: 2.5rem;
-      font-size: 1.05rem;
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--muted);
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-cta {
-      margin-top: 2.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── ABOUT STRIP ── */
-    .about-strip {
-      padding: 5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      border-top: 1px solid #1e1e1e;
-    }
-
-    .about-strip h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 4vw, 4rem);
-      line-height: 1;
-      letter-spacing: 0.03em;
-    }
-
+    .hero { min-height: 92vh; padding: 6rem 5rem; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+    .hero::before { content: '820'; position: absolute; right: -3rem; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 32vw; color: #111; line-height: 1; z-index: 0; pointer-events: none; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 9vw, 9rem); line-height: 0.93; letter-spacing: 0.02em; position: relative; z-index: 1; max-width: 800px; }
+    .hero-headline em { font-style: normal; color: var(--red); }
+    .hero-sub { max-width: 500px; margin-top: 2.5rem; font-size: 1.05rem; line-height: 1.75; color: var(--muted); position: relative; z-index: 1; }
+    .hero-cta { margin-top: 2.5rem; position: relative; z-index: 1; }
+    .about-strip { padding: 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; border-top: 1px solid #1e1e1e; }
+    .about-strip h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1; }
     .about-strip h2 span { color: var(--red); }
-
-    .about-right p {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    /* ── SERVICES PREVIEW ── */
-    .services-preview {
-      padding: 5rem;
-      border-top: 1px solid #1e1e1e;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0;
-      border-top: 1px solid #222;
-      border-left: 1px solid #222;
-      margin-top: 3rem;
-    }
-
-    .service-card {
-      padding: 2.5rem;
-      border-right: 1px solid #222;
-      border-bottom: 1px solid #222;
-      transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      color: var(--white);
-      display: block;
-    }
-
-    .service-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
-      background: var(--red);
-      transition: width 0.4s ease;
-    }
-
+    .about-right p { font-size: 1rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
+    .services-preview { padding: 5rem; border-top: 1px solid #1e1e1e; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid #222; border-left: 1px solid #222; margin-top: 3rem; }
+    .service-card { padding: 2.5rem; border-right: 1px solid #222; border-bottom: 1px solid #222; transition: background 0.3s; position: relative; overflow: hidden; text-decoration: none; color: var(--white); display: block; }
+    .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.4s; }
     .service-card:hover { background: #111; }
     .service-card:hover::after { width: 100%; }
-
-    .service-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: var(--red);
-      margin-bottom: 1rem;
-    }
-
-    .service-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      margin-bottom: 0.75rem;
-    }
-
-    .service-desc {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    /* ── RED STATEMENT ── */
-    .statement {
-      padding: 6rem 5rem;
-      background: var(--red);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .statement::before {
-      content: '';
-      position: absolute;
-      top: -60%; right: -8%;
-      width: 500px; height: 500px;
-      border: 100px solid rgba(0,0,0,0.08);
-      border-radius: 50%;
-    }
-
-    .statement-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      line-height: 1;
-      letter-spacing: 0.03em;
-      max-width: 900px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── WHO WE SERVE ── */
-    .audience {
-      padding: 5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      border-top: 1px solid #1e1e1e;
-    }
-
-    .audience h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-      line-height: 1;
-      margin-bottom: 1.5rem;
-    }
-
-    .audience p {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .audience-tags {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      justify-content: center;
-    }
-
-    .tag-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .tag-row::before {
-      content: '';
-      width: 28px; height: 2px;
-      background: var(--red);
-      flex-shrink: 0;
-    }
-
+    .service-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--red); margin-bottom: 1rem; }
+    .service-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+    .service-desc { font-size: 0.85rem; line-height: 1.7; color: var(--muted); }
+    .statement { padding: 6rem 5rem; background: var(--red); position: relative; overflow: hidden; }
+    .statement::before { content: ''; position: absolute; top: -60%; right: -8%; width: 500px; height: 500px; border: 100px solid rgba(0,0,0,0.08); border-radius: 50%; }
+    .statement-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 1; max-width: 900px; position: relative; z-index: 1; }
+    .audience { padding: 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; border-top: 1px solid #1e1e1e; }
+    .audience h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1; margin-bottom: 1.5rem; }
+    .audience p { font-size: 0.95rem; line-height: 1.8; color: var(--muted); margin-bottom: 2rem; }
+    .audience-tags { display: flex; flex-direction: column; gap: 1.25rem; justify-content: center; }
+    .tag-row { display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+    .tag-row::before { content: ''; width: 28px; height: 2px; background: var(--red); flex-shrink: 0; }
     @media (max-width: 768px) {
       .hero { padding: 4rem 1.5rem; min-height: auto; }
       .hero::before { font-size: 50vw; opacity: 0.5; }
@@ -247,7 +46,6 @@
   </style>
 </head>
 <body>
-
 <nav>
   <a href="index.html" class="nav-logo">820 <span>COLLECTIVE</span></a>
   <ul class="nav-links">
@@ -260,16 +58,10 @@
 
 <section class="hero">
   <p class="hero-eyebrow anim-1">— Strategy & Visibility Firm</p>
-  <h1 class="hero-headline anim-2">
-    Make the<br>
-    brand<br>
-    make <em>sense.</em>
-  </h1>
-  <p class="hero-sub anim-3">
-    820 Collective is a strategy-led creative collective focused on clarity, direction, and intentional growth. We help individuals and brands define their voice, organize their ideas, and move forward with confidence.
-  </p>
+  <h1 class="hero-headline anim-2">Make the<br>brand<br>make <em>sense.</em></h1>
+  <p class="hero-sub anim-3">820 Collective is a strategy-led creative collective focused on clarity, direction, and intentional growth. We help individuals and brands define their voice, organize their ideas, and move forward with confidence.</p>
   <div class="hero-cta anim-4">
-    <a href="services.html" class="btn btn-outline">Work With Us</a>
+    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" target="_blank" class="btn btn-outline">Book a Clarity Session</a>
   </div>
 </section>
 
@@ -312,9 +104,7 @@
 </section>
 
 <section class="statement">
-  <p class="statement-text">
-    Brand strategy, creative direction, and visibility support — built around you.
-  </p>
+  <p class="statement-text">Brand strategy, creative direction, and visibility support — built around you.</p>
 </section>
 
 <section class="audience">
@@ -322,7 +112,7 @@
     <p class="section-label">— Who We Work With</p>
     <h2>Right talent.<br>Right moment.</h2>
     <p>We partner with entrepreneurs, creatives, and mission-driven brands who are ready to move — but need the strategy to back up the vision.</p>
-    <a href="services.html#clarity" class="btn btn-red">Book a Clarity Session</a>
+    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" target="_blank" class="btn btn-red">Book a Clarity Session</a>
   </div>
   <div class="audience-tags">
     <div class="tag-row">Entrepreneurs & Founders</div>
@@ -341,11 +131,26 @@
     <a href="network.html">Network</a>
   </div>
   <div class="footer-right">
-    <a href="mailto:hello@the820co.com">hello@the820co.com</a>
+    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" target="_blank">Book a Session</a>
     <a href="https://instagram.com/the820co" target="_blank">@the820co</a>
+    <div class="footer-jobs">
+      <span class="footer-jobs-label">We're Hiring</span>
+      <a href="network.html#jobs">Marketing & Branding Intern →</a>
+    </div>
   </div>
   <div class="footer-copy">© 2025 The 820 Collective. All rights reserved.</div>
 </footer>
-
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  var toggle=document.querySelector(".nav-toggle");
+  var links=document.querySelector(".nav-links");
+  if(toggle){
+    toggle.addEventListener("click",function(){
+      toggle.classList.toggle("open");
+      links.classList.toggle("open");
+    });
+  }
+});
+</script>
 </body>
 </html>
