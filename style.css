@@ -94,3 +94,14 @@ footer {
   .footer-right { text-align: center; align-items: center; }
   .footer-jobs { align-items: center; }
 }
+
+/* ── MAILING LIST ── */
+.mailing-list { padding: 5rem; border-top: 1px solid #1e1e1e; background: #0d0d0d; }
+.ml-content { display: flex; justify-content: space-between; align-items: center; gap: 4rem; }
+.ml-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1; margin: 0.5rem 0 1rem; }
+.ml-body { font-size: 0.95rem; line-height: 1.75; color: var(--muted); max-width: 480px; }
+.ml-cta { flex-shrink: 0; }
+@media (max-width: 768px) {
+  .mailing-list { padding: 3rem 1.5rem; }
+  .ml-content { flex-direction: column; gap: 2rem; }
+}
