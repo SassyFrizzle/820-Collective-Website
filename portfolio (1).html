@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — 820 Collective</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --red: #C8102E;
+      --white: #F5F5F5;
+      --gray: #1a1a1a;
+      --muted: #888;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+    }
+
+    .portfolio-hero {
+      padding: 120px 60px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-label::before { content: '—\00a0'; }
+
+    .portfolio-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 96px);
+      line-height: 0.93;
+      letter-spacing: 0.02em;
+    }
+
+    .portfolio-hero h1 em {
+      display: block;
+      font-family: 'Barlow', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.38em;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 12px;
+    }
+
+    .filter-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 60px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid #2a2a2a;
+      color: var(--muted);
+      font-family: 'Barlow', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+    }
+
+    .portfolio-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 60px 80px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--gray);
+      display: block;
+      text-decoration: none;
+    }
+
+    .portfolio-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover::after { opacity: 0.5; }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .portfolio-item:hover img { transform: scale(1.05); }
+
+    .item-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 24px;
+      z-index: 2;
+      transform: translateY(4px);
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover .item-info { transform: translateY(0); }
+
+    .item-category {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 5px;
+    }
+
+    .item-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .item-desc {
+      font-size: 11px;
+      color: rgba(245,245,245,0.55);
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    .span-7 { grid-column: span 7; height: 460px; }
+    .span-5 { grid-column: span 5; height: 460px; }
+    .span-4 { grid-column: span 4; height: 360px; }
+    .span-6 { grid-column: span 6; height: 400px; }
+
+    .portfolio-item.hidden { display: none; }
+
+    .placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .placeholder p {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: #222;
+      letter-spacing: 0.1em;
+    }
+
+    .placeholder span {
+      font-size: 10px;
+      color: #2a2a2a;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .portfolio-cta {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 60px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .cta-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .cta-text strong { color: var(--white); font-weight: 500; }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .cta-btn:hover { background: #a00d24; }
+
+    @media (max-width: 768px) {
+      .portfolio-hero, .filter-bar, .portfolio-grid, .portfolio-cta {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .span-7, .span-5, .span-4, .span-6 {
+        grid-column: span 12;
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">820 COLLECTIVE</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html" class="active">Work</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="network.html">Creative Network</a></li>
+    </ul>
+    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" class="nav-cta">Book a Session</a>
+  </nav>
+
+  <div class="portfolio-hero">
+    <p class="section-label">Selected Work</p>
+    <h1>The work<em>film. brand. events. print.</em></h1>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all', this)">All</button>
+    <button class="filter-btn" onclick="filter('film', this)">Film & Entertainment</button>
+    <button class="filter-btn" onclick="filter('event', this)">Events & Organizations</button>
+    <button class="filter-btn" onclick="filter('brand', this)">Brand & Print</button>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <!-- Row 1 -->
+    <a class="portfolio-item span-7" data-cat="film">
+      <img src="images/shower-2" alt="The Shower — film poster" loading="lazy" />
+      <div class="item-info">
+        <p class="item-category">Film & Entertainment</p>
+        <p class="item-title">The Shower</p>
+        <p class="item-desc">Poster suite · 4 variations · Dir. Okema T. Moore</p>
+      </div>
+    </a>
+
+    <a class="portfolio-item span-5" data-cat="film">
+      <img src="images/love-song-handbill-front" alt="Love Song — press handbill" loading="lazy" />
+      <div class="item-info">
+        <p class="item-category">Film & Entertainment</p>
+        <p class="item-title">Love Song</p>
+        <p class="item-desc">Press handbill · ABFF Official Selection 2026 · Dir. Love Nafi</p>
+      </div>
+    </a>
+
+    <!-- Row 2 -->
+    <a class="portfolio-item span-4" data-cat="film">
+      <img src="images/shower-1" alt="The Shower — poster variant" loading="lazy" />
+      <div class="item-info">
+        <p class="item-category">Film & Entertainment</p>
+        <p class="item-title">The Shower — Alt</p>
+        <p class="item-desc">Poster variant · dramatic tension</p>
+      </div>
+    </a>
+
+    <a class="portfolio-item span-4" data-cat="film">
+      <img src="images/shower-3" alt="The Shower — poster variant" loading="lazy" />
+      <div class="item-info">
+        <p class="item-category">Film & Entertainment</p>
+        <p class="item-title">The Shower — Alt</p>
+        <p class="item-desc">Poster variant · intimate framing</p>
+      </div>
+    </a>
+
+    <a class="portfolio-item span-4" data-cat="film">
+      <img src="images/shower-4" alt="The Shower — poster variant" loading="lazy" />
+      <div class="item-info">
+        <p class="item-category">Film & Entertainment</p>
+        <p class="item-title">The Shower — Alt</p>
+        <p class="item-desc">Poster variant · silhouette</p>
+      </div>
+    </a>
+
+    <!-- Row 3 -->
+    <a class="portfolio-item span-4" data-cat="film">
+      <img src="images/love-song-handbill-back" alt="Love Song — director bio" loading="lazy" />
+      <div class="item-info">
+        <p class="item-category">Film & Entertainment</p>
+        <p class="item-title">Love Song — Director Bio</p>
+        <p class="item-desc">Press handbill reverse · Love Nafi</p>
+      </div>
+    </a>
+
+    <a class="portfolio-item span-4" data-cat="event" style="background:#0d0d1a;">
+      <div class="placeholder">
+        <p>NERC84</p>
+        <span>Coming Soon</span>
+      </div>
+      <div class="item-info">
+        <p class="item-category">Events & Organizations</p>
+        <p class="item-title">Excellence Elevated</p>
+        <p class="item-desc">84th NER Conference · Full brand system</p>
+      </div>
+    </a>
+
+    <a class="portfolio-item span-4" data-cat="brand" style="background:#0d1a0d;">
+      <div class="placeholder">
+        <p>ON THE GREEN</p>
+        <span>Coming Soon</span>
+      </div>
+      <div class="item-info">
+        <p class="item-category">Brand & Print</p>
+        <p class="item-title">On The Green Golf Classic</p>
+        <p class="item-desc">Event flyer · Wealth Watchers FL</p>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="portfolio-cta">
+    <p class="cta-text"><strong>Need design that works?</strong> From film posters to full brand systems — we build visuals that move people and mean something.</p>
+    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" class="cta-btn">Start a Project</a>
+  </div>
+
+  <script>
+    function filter(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.portfolio-item').forEach(item => {
+        if (cat === 'all' || item.dataset.cat === cat) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
