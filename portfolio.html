@@ -103,21 +103,23 @@
     .portfolio-item {
       position: relative;
       overflow: hidden;
-      cursor: pointer;
       background: var(--gray);
       display: block;
       text-decoration: none;
+      cursor: pointer;
     }
 
-    .portfolio-item::after {
-      content: '';
+    /* Gradient overlay sits behind pointer events */
+    .portfolio-item .overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
       transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .portfolio-item:hover::after { opacity: 0.5; }
+    .portfolio-item:hover .overlay { opacity: 0.5; }
 
     .portfolio-item img {
       width: 100%;
@@ -136,6 +138,7 @@
       right: 0;
       padding: 20px 24px;
       z-index: 2;
+      pointer-events: none;
       transform: translateY(4px);
       transition: transform 0.3s ease;
     }
@@ -169,7 +172,6 @@
     .span-7 { grid-column: span 7; height: 460px; }
     .span-5 { grid-column: span 5; height: 460px; }
     .span-4 { grid-column: span 4; height: 360px; }
-    .span-6 { grid-column: span 6; height: 400px; }
 
     .portfolio-item.hidden { display: none; }
 
@@ -181,6 +183,7 @@
       justify-content: center;
       flex-direction: column;
       gap: 8px;
+      pointer-events: none;
     }
 
     .placeholder p {
@@ -241,9 +244,9 @@
         padding-left: 24px;
         padding-right: 24px;
       }
-      .span-7, .span-5, .span-4, .span-6 {
+      .span-7, .span-5, .span-4 {
         grid-column: span 12;
-        height: 300px;
+        height: 280px;
       }
     }
   </style>
@@ -276,9 +279,9 @@
 
   <div class="portfolio-grid">
 
-    <!-- Row 1 -->
     <a class="portfolio-item span-7" data-cat="film">
-      <img src="images/shower-2" alt="The Shower — film poster" loading="lazy" />
+      <img src="images/shower-2.jpeg" alt="The Shower — film poster" loading="lazy" />
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Film & Entertainment</p>
         <p class="item-title">The Shower</p>
@@ -287,7 +290,8 @@
     </a>
 
     <a class="portfolio-item span-5" data-cat="film">
-      <img src="images/love-song-handbill-front" alt="Love Song — press handbill" loading="lazy" />
+      <img src="images/love-song-handbill-front.jpeg" alt="Love Song — press handbill" loading="lazy" />
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Film & Entertainment</p>
         <p class="item-title">Love Song</p>
@@ -295,9 +299,9 @@
       </div>
     </a>
 
-    <!-- Row 2 -->
     <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/shower-1" alt="The Shower — poster variant" loading="lazy" />
+      <img src="images/shower-1.jpeg" alt="The Shower — poster variant" loading="lazy" />
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Film & Entertainment</p>
         <p class="item-title">The Shower — Alt</p>
@@ -306,7 +310,8 @@
     </a>
 
     <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/shower-3" alt="The Shower — poster variant" loading="lazy" />
+      <img src="images/shower-3.jpeg" alt="The Shower — poster variant" loading="lazy" />
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Film & Entertainment</p>
         <p class="item-title">The Shower — Alt</p>
@@ -315,7 +320,8 @@
     </a>
 
     <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/shower-4" alt="The Shower — poster variant" loading="lazy" />
+      <img src="images/shower-4.jpeg" alt="The Shower — poster variant" loading="lazy" />
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Film & Entertainment</p>
         <p class="item-title">The Shower — Alt</p>
@@ -323,9 +329,9 @@
       </div>
     </a>
 
-    <!-- Row 3 -->
     <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/love-song-handbill-back" alt="Love Song — director bio" loading="lazy" />
+      <img src="images/love-song-handbill-back.jpeg" alt="Love Song — director bio" loading="lazy" />
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Film & Entertainment</p>
         <p class="item-title">Love Song — Director Bio</p>
@@ -338,6 +344,7 @@
         <p>NERC84</p>
         <span>Coming Soon</span>
       </div>
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Events & Organizations</p>
         <p class="item-title">Excellence Elevated</p>
@@ -350,6 +357,7 @@
         <p>ON THE GREEN</p>
         <span>Coming Soon</span>
       </div>
+      <div class="overlay"></div>
       <div class="item-info">
         <p class="item-category">Brand & Print</p>
         <p class="item-title">On The Green Golf Classic</p>
