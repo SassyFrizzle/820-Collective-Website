@@ -25,6 +25,7 @@
       font-weight: 300;
     }
 
+    /* ── Hero ── */
     .portfolio-hero {
       padding: 120px 60px 60px;
       max-width: 1200px;
@@ -61,6 +62,7 @@
       margin-top: 12px;
     }
 
+    /* ── Filters ── */
     .filter-bar {
       max-width: 1200px;
       margin: 0 auto;
@@ -91,91 +93,100 @@
       color: var(--white);
     }
 
+    /* ── Grid ── */
     .portfolio-grid {
       max-width: 1200px;
       margin: 0 auto;
       padding: 48px 60px 80px;
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    .portfolio-item {
+    .portfolio-card {
       position: relative;
       overflow: hidden;
       background: var(--gray);
-      display: block;
-      text-decoration: none;
       cursor: pointer;
+      height: 380px;
+      transition: transform 0.3s ease;
     }
 
-    /* Gradient overlay sits behind pointer events */
-    .portfolio-item .overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-      z-index: 1;
-    }
+    .portfolio-card:hover { transform: translateY(-4px); }
 
-    .portfolio-item:hover .overlay { opacity: 0.5; }
-
-    .portfolio-item img {
+    .portfolio-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s ease;
+      transition: transform 0.5s ease;
     }
 
-    .portfolio-item:hover img { transform: scale(1.05); }
+    .portfolio-card:hover img { transform: scale(1.05); }
 
-    .item-info {
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .card-info {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 20px 24px;
-      z-index: 2;
+      padding: 24px;
       pointer-events: none;
-      transform: translateY(4px);
-      transition: transform 0.3s ease;
     }
 
-    .portfolio-item:hover .item-info { transform: translateY(0); }
-
-    .item-category {
+    .card-category {
       font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
-    .item-title {
+    .card-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
+      font-size: 24px;
       letter-spacing: 0.06em;
       color: var(--white);
       line-height: 1;
     }
 
-    .item-desc {
+    .card-subtitle {
       font-size: 11px;
       color: rgba(245,245,245,0.55);
-      margin-top: 4px;
-      font-weight: 300;
+      margin-top: 5px;
     }
 
-    .span-7 { grid-column: span 7; height: 460px; }
-    .span-5 { grid-column: span 5; height: 460px; }
-    .span-4 { grid-column: span 4; height: 360px; }
+    .card-cta {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      border-bottom: 1px solid var(--red);
+      padding-bottom: 2px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 
-    .portfolio-item.hidden { display: none; }
+    .portfolio-card:hover .card-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    .placeholder {
+    .portfolio-card.hidden { display: none; }
+
+    /* Placeholder card */
+    .placeholder-inner {
       width: 100%;
       height: 100%;
       display: flex;
@@ -183,23 +194,143 @@
       justify-content: center;
       flex-direction: column;
       gap: 8px;
-      pointer-events: none;
     }
 
-    .placeholder p {
+    .placeholder-inner p {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      color: #222;
+      font-size: 22px;
+      color: #252525;
       letter-spacing: 0.1em;
     }
 
-    .placeholder span {
+    .placeholder-inner span {
       font-size: 10px;
       color: #2a2a2a;
       letter-spacing: 0.15em;
       text-transform: uppercase;
     }
 
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-header {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding: 0 8px;
+    }
+
+    .lightbox-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .lightbox-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .lightbox-close {
+      background: none;
+      border: 1px solid #333;
+      color: var(--white);
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s ease;
+    }
+
+    .lightbox-close:hover { border-color: var(--red); }
+
+    .lightbox-stage {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+    }
+
+    .lightbox-media {
+      width: 100%;
+      max-height: 65vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-media.video-embed {
+      height: 500px;
+      border: none;
+    }
+
+    /* Multi-item nav */
+    .lightbox-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .lightbox-nav button {
+      background: none;
+      border: 1px solid #333;
+      color: var(--white);
+      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-nav button:hover { border-color: var(--red); }
+
+    .lightbox-counter {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .lightbox-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .lightbox-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #333;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox-dots span.active { background: var(--red); }
+
+    /* ── CTA ── */
     .portfolio-cta {
       max-width: 1200px;
       margin: 0 auto;
@@ -234,20 +365,18 @@
       padding: 16px 36px;
       text-decoration: none;
       transition: background 0.2s ease;
-      white-space: nowrap;
     }
 
     .cta-btn:hover { background: #a00d24; }
 
-    @media (max-width: 768px) {
-      .portfolio-hero, .filter-bar, .portfolio-grid, .portfolio-cta {
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-      .span-7, .span-5, .span-4 {
-        grid-column: span 12;
-        height: 280px;
-      }
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .portfolio-hero, .filter-bar, .portfolio-grid, .portfolio-cta { padding-left: 24px; padding-right: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-card { height: 300px; }
     }
   </style>
 </head>
@@ -271,99 +400,94 @@
   </div>
 
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all', this)">All</button>
-    <button class="filter-btn" onclick="filter('film', this)">Film & Entertainment</button>
-    <button class="filter-btn" onclick="filter('event', this)">Events & Organizations</button>
-    <button class="filter-btn" onclick="filter('brand', this)">Brand & Print</button>
+    <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
+    <button class="filter-btn" onclick="filterWork('film', this)">Film & Entertainment</button>
+    <button class="filter-btn" onclick="filterWork('event', this)">Events & Organizations</button>
+    <button class="filter-btn" onclick="filterWork('brand', this)">Brand & Print</button>
   </div>
+
+  <!-- =============================================
+       TO ADD A NEW PROJECT:
+       Copy one .portfolio-card block below,
+       update data-cat, data-title, data-meta,
+       data-items (comma-separated image paths or video URLs),
+       and the thumbnail src.
+       That's it.
+  ============================================= -->
 
   <div class="portfolio-grid">
 
-    <a class="portfolio-item span-7" data-cat="film">
-      <img src="images/shower-2" alt="The Shower — film poster" loading="lazy" />
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Film & Entertainment</p>
-        <p class="item-title">The Shower</p>
-        <p class="item-desc">Poster suite · 4 variations · Dir. Okema T. Moore</p>
+    <!-- The Shower -->
+    <div class="portfolio-card"
+         data-cat="film"
+         data-title="The Shower"
+         data-meta="Poster suite · Dir. Okema T. Moore"
+         data-items="images/shower-1,images/shower-2,images/shower-3,images/shower-4"
+         onclick="openLightbox(this)">
+      <img src="images/shower-2" alt="The Shower" />
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-category">Film & Entertainment</p>
+        <p class="card-title">The Shower</p>
+        <p class="card-subtitle">Poster suite · 4 variations · Dir. Okema T. Moore</p>
+        <span class="card-cta">View Project →</span>
       </div>
-    </a>
+    </div>
 
-    <a class="portfolio-item span-5" data-cat="film">
-      <img src="images/love-song-handbill-front" alt="Love Song — press handbill" loading="lazy" />
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Film & Entertainment</p>
-        <p class="item-title">Love Song</p>
-        <p class="item-desc">Press handbill · ABFF Official Selection 2026 · Dir. Love Nafi</p>
+    <!-- Love Song -->
+    <div class="portfolio-card"
+         data-cat="film"
+         data-title="Love Song"
+         data-meta="Press materials · ABFF Official Selection 2026 · Dir. Love Nafi"
+         data-items="images/love-song-handbill-front,images/love-song-handbill-back"
+         onclick="openLightbox(this)">
+      <img src="images/love-song-handbill-front" alt="Love Song" />
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-category">Film & Entertainment</p>
+        <p class="card-title">Love Song</p>
+        <p class="card-subtitle">Press materials · ABFF Official Selection 2026</p>
+        <span class="card-cta">View Project →</span>
       </div>
-    </a>
+    </div>
 
-    <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/shower-1" alt="The Shower — poster variant" loading="lazy" />
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Film & Entertainment</p>
-        <p class="item-title">The Shower — Alt</p>
-        <p class="item-desc">Poster variant · dramatic tension</p>
-      </div>
-    </a>
-
-    <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/shower-3" alt="The Shower — poster variant" loading="lazy" />
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Film & Entertainment</p>
-        <p class="item-title">The Shower — Alt</p>
-        <p class="item-desc">Poster variant · intimate framing</p>
-      </div>
-    </a>
-
-    <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/shower-4" alt="The Shower — poster variant" loading="lazy" />
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Film & Entertainment</p>
-        <p class="item-title">The Shower — Alt</p>
-        <p class="item-desc">Poster variant · silhouette</p>
-      </div>
-    </a>
-
-    <a class="portfolio-item span-4" data-cat="film">
-      <img src="images/love-song-handbill-back" alt="Love Song — director bio" loading="lazy" />
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Film & Entertainment</p>
-        <p class="item-title">Love Song — Director Bio</p>
-        <p class="item-desc">Press handbill reverse · Love Nafi</p>
-      </div>
-    </a>
-
-    <a class="portfolio-item span-4" data-cat="event" style="background:#0d0d1a;">
-      <div class="placeholder">
+    <!-- NERC84 — placeholder -->
+    <div class="portfolio-card"
+         data-cat="event"
+         data-title="Excellence Elevated"
+         data-meta="84th NER Conference · Full brand system · Sigma Gamma Rho"
+         data-items=""
+         style="background:#0d0d1a; cursor:default;">
+      <div class="placeholder-inner">
         <p>NERC84</p>
         <span>Coming Soon</span>
       </div>
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Events & Organizations</p>
-        <p class="item-title">Excellence Elevated</p>
-        <p class="item-desc">84th NER Conference · Full brand system</p>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-category">Events & Organizations</p>
+        <p class="card-title">Excellence Elevated</p>
+        <p class="card-subtitle">84th NER Conference · Full brand system</p>
       </div>
-    </a>
+    </div>
 
-    <a class="portfolio-item span-4" data-cat="brand" style="background:#0d1a0d;">
-      <div class="placeholder">
+    <!-- On The Green — placeholder -->
+    <div class="portfolio-card"
+         data-cat="brand"
+         data-title="On The Green Golf Classic"
+         data-meta="Event flyer · Wealth Watchers FL"
+         data-items=""
+         style="background:#0d1a0d; cursor:default;">
+      <div class="placeholder-inner">
         <p>ON THE GREEN</p>
         <span>Coming Soon</span>
       </div>
-      <div class="overlay"></div>
-      <div class="item-info">
-        <p class="item-category">Brand & Print</p>
-        <p class="item-title">On The Green Golf Classic</p>
-        <p class="item-desc">Event flyer · Wealth Watchers FL</p>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-category">Brand & Print</p>
+        <p class="card-title">On The Green Golf Classic</p>
+        <p class="card-subtitle">Event flyer · Wealth Watchers FL</p>
       </div>
-    </a>
+    </div>
 
   </div>
 
@@ -372,18 +496,122 @@
     <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" class="cta-btn">Start a Project</a>
   </div>
 
+  <!-- ── Lightbox ── -->
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+    <div class="lightbox-header">
+      <div>
+        <p class="lightbox-title" id="lb-title"></p>
+        <p class="lightbox-meta" id="lb-meta"></p>
+      </div>
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    </div>
+
+    <div class="lightbox-stage">
+      <img class="lightbox-media" id="lb-img" src="" alt="" />
+      <iframe class="lightbox-media video-embed" id="lb-video" src="" style="display:none;"></iframe>
+    </div>
+
+    <div class="lightbox-nav" id="lb-nav">
+      <button onclick="changeSlide(-1)">←</button>
+      <div class="lightbox-dots" id="lb-dots"></div>
+      <span class="lightbox-counter" id="lb-counter"></span>
+      <button onclick="changeSlide(1)">→</button>
+    </div>
+  </div>
+
   <script>
-    function filter(cat, btn) {
+    let items = [];
+    let current = 0;
+
+    function openLightbox(card) {
+      const raw = card.dataset.items;
+      if (!raw) return;
+      items = raw.split(',').map(s => s.trim()).filter(Boolean);
+      if (!items.length) return;
+
+      document.getElementById('lb-title').textContent = card.dataset.title;
+      document.getElementById('lb-meta').textContent = card.dataset.meta;
+
+      current = 0;
+      renderSlide();
+      buildDots();
+
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+      document.getElementById('lb-video').src = '';
+    }
+
+    function closeLightboxOutside(e) {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    }
+
+    function renderSlide() {
+      const src = items[current];
+      const isVideo = src.includes('youtube') || src.includes('vimeo');
+      const img = document.getElementById('lb-img');
+      const vid = document.getElementById('lb-video');
+
+      if (isVideo) {
+        img.style.display = 'none';
+        vid.style.display = 'block';
+        vid.src = src;
+      } else {
+        vid.style.display = 'none';
+        vid.src = '';
+        img.style.display = 'block';
+        img.src = src;
+      }
+
+      document.getElementById('lb-counter').textContent = items.length > 1
+        ? `${current + 1} / ${items.length}` : '';
+
+      document.querySelectorAll('#lb-dots span').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+
+      document.getElementById('lb-nav').style.display = items.length > 1 ? 'flex' : 'none';
+    }
+
+    function buildDots() {
+      const container = document.getElementById('lb-dots');
+      container.innerHTML = '';
+      items.forEach((_, i) => {
+        const dot = document.createElement('span');
+        if (i === 0) dot.classList.add('active');
+        dot.onclick = () => { current = i; renderSlide(); };
+        container.appendChild(dot);
+      });
+    }
+
+    function changeSlide(dir) {
+      current = (current + dir + items.length) % items.length;
+      renderSlide();
+    }
+
+    function filterWork(cat, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.portfolio-item').forEach(item => {
-        if (cat === 'all' || item.dataset.cat === cat) {
-          item.classList.remove('hidden');
+      document.querySelectorAll('.portfolio-card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.classList.remove('hidden');
         } else {
-          item.classList.add('hidden');
+          card.classList.add('hidden');
         }
       });
     }
+
+    // Keyboard nav
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
   </script>
 
 </body>
