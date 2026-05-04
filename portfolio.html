@@ -9,362 +9,62 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #0A0A0A; --red: #C8102E; --white: #F5F5F5; --gray: #1a1a1a; --muted: #888; }
+    body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 300; }
 
-    :root {
-      --black: #0A0A0A;
-      --red: #C8102E;
-      --white: #F5F5F5;
-      --gray: #1a1a1a;
-      --muted: #888;
-    }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
-      font-weight: 300;
-    }
-
-    .portfolio-hero {
-      padding: 120px 60px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-      border-bottom: 1px solid #1e1e1e;
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
+    .portfolio-hero { padding: 120px 60px 60px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid #1e1e1e; }
+    .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; margin-bottom: 16px; }
     .section-label::before { content: '—\00a0'; }
+    .portfolio-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 96px); line-height: 0.93; letter-spacing: 0.02em; }
+    .portfolio-hero h1 em { display: block; font-family: 'Barlow', sans-serif; font-style: italic; font-weight: 300; font-size: 0.38em; color: var(--muted); letter-spacing: 0.05em; margin-top: 12px; }
 
-    .portfolio-hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 8vw, 96px);
-      line-height: 0.93;
-      letter-spacing: 0.02em;
-    }
+    .filter-bar { max-width: 1200px; margin: 0 auto; padding: 48px 60px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { background: transparent; border: 1px solid #2a2a2a; color: var(--muted); font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 10px 22px; cursor: pointer; transition: all 0.2s ease; }
+    .filter-btn:hover, .filter-btn.active { background: var(--red); border-color: var(--red); color: var(--white); }
 
-    .portfolio-hero h1 em {
-      display: block;
-      font-family: 'Barlow', sans-serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: 0.38em;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      margin-top: 12px;
-    }
-
-    .filter-bar {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 60px 0;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      background: transparent;
-      border: 1px solid #2a2a2a;
-      color: var(--muted);
-      font-family: 'Barlow', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 10px 22px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--red);
-      border-color: var(--red);
-      color: var(--white);
-    }
-
-    .portfolio-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 60px 80px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .portfolio-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--gray);
-      cursor: pointer;
-      height: 380px;
-      transition: transform 0.3s ease;
-    }
-
+    .portfolio-grid { max-width: 1200px; margin: 0 auto; padding: 48px 60px 80px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .portfolio-card { position: relative; overflow: hidden; background: var(--gray); cursor: pointer; height: 380px; transition: transform 0.3s ease; }
     .portfolio-card:hover { transform: translateY(-4px); }
-
-    .portfolio-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
+    .portfolio-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.5s ease; }
     .portfolio-card:hover img { transform: scale(1.05); }
-
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
-      pointer-events: none;
-    }
-
-    .card-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 24px;
-      pointer-events: none;
-    }
-
-    .card-category {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 6px;
-    }
-
-    .card-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 0.06em;
-      color: var(--white);
-      line-height: 1;
-    }
-
-    .card-subtitle {
-      font-size: 11px;
-      color: rgba(245,245,245,0.55);
-      margin-top: 5px;
-    }
-
-    .card-cta {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--white);
-      border-bottom: 1px solid var(--red);
-      padding-bottom: 2px;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
+    .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 50%, transparent 100%); pointer-events: none; }
+    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; pointer-events: none; }
+    .card-category { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.06em; color: var(--white); line-height: 1; }
+    .card-subtitle { font-size: 11px; color: rgba(245,245,245,0.55); margin-top: 5px; }
+    .card-cta { display: inline-block; margin-top: 10px; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); border-bottom: 1px solid var(--red); padding-bottom: 2px; opacity: 0; transform: translateY(6px); transition: opacity 0.3s ease, transform 0.3s ease; }
     .portfolio-card:hover .card-cta { opacity: 1; transform: translateY(0); }
-
     .portfolio-card.hidden { display: none; }
     .portfolio-card.no-click { cursor: default; }
+    .placeholder-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
+    .placeholder-inner p { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: #252525; letter-spacing: 0.1em; }
+    .placeholder-inner span { font-size: 10px; color: #2a2a2a; letter-spacing: 0.15em; text-transform: uppercase; }
 
-    .placeholder-inner {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .placeholder-inner p {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      color: #252525;
-      letter-spacing: 0.1em;
-    }
-
-    .placeholder-inner span {
-      font-size: 10px;
-      color: #2a2a2a;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    /* ── Lightbox ── */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.96);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 32px 20px;
-    }
-
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; padding: 32px 20px; }
     .lightbox.open { display: flex; }
-
-    .lightbox-header {
-      width: 100%;
-      max-width: 900px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
-
-    .lightbox-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 30px;
-      letter-spacing: 0.05em;
-      color: var(--white);
-      line-height: 1;
-    }
-
-    .lightbox-meta {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .lightbox-close {
-      background: none;
-      border: 1px solid #333;
-      color: var(--white);
-      font-size: 18px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: border-color 0.2s ease;
-    }
-
+    .lightbox-header { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .lightbox-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 0.05em; color: var(--white); line-height: 1; }
+    .lightbox-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .lightbox-close { background: none; border: 1px solid #333; color: var(--white); font-size: 18px; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s ease; }
     .lightbox-close:hover { border-color: var(--red); color: var(--red); }
-
-    .lightbox-stage {
-      width: 100%;
-      max-width: 900px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox-media {
-      max-width: 100%;
-      max-height: 62vh;
-      object-fit: contain;
-      display: block;
-    }
-
-    .lightbox-video {
-      width: 100%;
-      height: 500px;
-      border: none;
-      display: none;
-    }
-
-    .lightbox-nav {
-      display: none;
-      align-items: center;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
+    .lightbox-stage { width: 100%; max-width: 900px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    .lightbox-media { max-width: 100%; max-height: 55vh; object-fit: contain; display: block; }
+    .lightbox-caption { font-size: 11px; color: var(--muted); margin-top: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; min-height: 18px; }
+    .lightbox-video { width: 100%; height: 480px; border: none; display: none; }
+    .lightbox-nav { display: none; align-items: center; gap: 16px; margin-top: 16px; }
     .lightbox-nav.visible { display: flex; }
-
-    .lightbox-nav button {
-      background: none;
-      border: 1px solid #333;
-      color: var(--white);
-      font-size: 18px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      transition: border-color 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    .lightbox-nav button { background: none; border: 1px solid #333; color: var(--white); font-size: 18px; width: 40px; height: 40px; cursor: pointer; transition: border-color 0.2s ease; display: flex; align-items: center; justify-content: center; }
     .lightbox-nav button:hover { border-color: var(--red); }
-
     .lightbox-dots { display: flex; gap: 6px; }
-
-    .lightbox-dots span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #333;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
+    .lightbox-dots span { width: 6px; height: 6px; border-radius: 50%; background: #333; cursor: pointer; transition: background 0.2s ease; }
     .lightbox-dots span.active { background: var(--red); }
+    .lightbox-counter { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; min-width: 40px; text-align: center; }
 
-    .lightbox-counter {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      min-width: 40px;
-      text-align: center;
-    }
-
-    /* ── CTA ── */
-    .portfolio-cta {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 60px 100px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      border-top: 1px solid #1e1e1e;
-    }
-
-    .cta-text {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--muted);
-      max-width: 420px;
-      line-height: 1.7;
-    }
-
+    .portfolio-cta { max-width: 1200px; margin: 0 auto; padding: 40px 60px 100px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-top: 1px solid #1e1e1e; }
+    .cta-text { font-size: 15px; font-weight: 300; color: var(--muted); max-width: 420px; line-height: 1.7; }
     .cta-text strong { color: var(--white); font-weight: 500; }
-
-    .cta-btn {
-      display: inline-block;
-      background: var(--red);
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 16px 36px;
-      text-decoration: none;
-      transition: background 0.2s ease;
-    }
-
+    .cta-btn { display: inline-block; background: var(--red); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 16px 36px; text-decoration: none; transition: background 0.2s ease; }
     .cta-btn:hover { background: #a00d24; }
 
     @media (max-width: 900px) {
@@ -372,7 +72,6 @@
       .portfolio-hero, .filter-bar, .portfolio-grid, .portfolio-cta { padding-left: 24px; padding-right: 24px; }
       .lightbox-video { height: 300px; }
     }
-
     @media (max-width: 600px) {
       .portfolio-grid { grid-template-columns: 1fr; }
       .portfolio-card { height: 280px; }
@@ -381,312 +80,316 @@
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">820 COLLECTIVE</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="portfolio.html" class="active">Work</a></li>
-      <li><a href="team.html">Team</a></li>
-      <li><a href="network.html">Creative Network</a></li>
-    </ul>
-    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" class="nav-cta">Book a Session</a>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">820 <span>COLLECTIVE</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html" class="active">Work</a></li>
+    <li><a href="team.html">About</a></li>
+    <li><a href="network.html">Creative Network</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
 
-  <div class="portfolio-hero">
-    <p class="section-label">Selected Work</p>
-    <h1>The work<em>film. motion. brand. web. events.</em></h1>
-  </div>
+<div class="portfolio-hero">
+  <p class="section-label">Selected Work</p>
+  <h1>The work<em>film. motion. web. brand. events.</em></h1>
+</div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
-    <button class="filter-btn" onclick="filterWork('film', this)">Film & Motion</button>
-    <button class="filter-btn" onclick="filterWork('web', this)">Web & Brand</button>
-    <button class="filter-btn" onclick="filterWork('event', this)">Events & Organizations</button>
-  </div>
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
+  <button class="filter-btn" onclick="filterWork('film', this)">Film & Motion</button>
+  <button class="filter-btn" onclick="filterWork('web', this)">Web & Brand</button>
+  <button class="filter-btn" onclick="filterWork('event', this)">Events & Organizations</button>
+</div>
 
-  <!-- =============================================
-    TO ADD A PROJECT:
-    1. Upload image to images/ folder on GitHub
-    2. Copy a card block below
-    3. Update: data-cat, data-title, data-meta,
-       data-items (comma-separated paths or YouTube
-       embed URLs), thumbnail src, and card text
-    That's it — no other code to touch.
+<!-- =============================================
+  TO ADD A PROJECT:
+  1. Upload image to images/ folder on GitHub
+  2. Copy a card block below
+  3. Update data-cat, data-title, data-meta,
+     data-items (comma-separated image paths or
+     YouTube embed URLs), and thumbnail src
+  For captions, edit the data-captions attribute
+  (comma-separated, one per item in data-items)
+============================================= -->
 
-    For YouTube videos use the embed URL format:
-    https://www.youtube.com/embed/VIDEO_ID
-  ============================================= -->
+<div class="portfolio-grid">
 
-  <div class="portfolio-grid">
-
-    <!-- The Shower -->
-    <div class="portfolio-card"
-         data-cat="film"
-         data-title="The Shower"
-         data-meta="Poster suite + film open · Dir. Okema T. Moore"
-         data-items="images/shower-1.jpg,images/shower-2.jpg,images/shower-3.jpg,images/shower-4.jpg,https://www.youtube.com/embed/Lfj474zh0Uw"
-         onclick="openLightbox(this)">
-      <img src="images/shower-2.jpg" alt="The Shower" />
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Film & Motion</p>
-        <p class="card-title">The Shower</p>
-        <p class="card-subtitle">Poster suite · Film open · Dir. Okema T. Moore</p>
-        <span class="card-cta">View Project →</span>
-      </div>
-    </div>
-
-    <!-- Love Song -->
-    <div class="portfolio-card"
-         data-cat="film"
-         data-title="Love Song"
-         data-meta="Press materials · ABFF Official Selection 2026 · Dir. Love Nafi"
-         data-items="images/love-song-handbill-front.jpg,images/love-song-handbill-back.jpg"
-         onclick="openLightbox(this)">
-      <img src="images/love-song-handbill-front.jpg" alt="Love Song" />
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Film & Motion</p>
-        <p class="card-title">Love Song</p>
-        <p class="card-subtitle">Press materials · ABFF Official Selection 2026</p>
-        <span class="card-cta">View Project →</span>
-      </div>
-    </div>
-
-    <!-- Love Zuri -->
-    <div class="portfolio-card"
-         data-cat="film"
-         data-title="Love Zuri"
-         data-meta="Film open + motion sequences · Co-Producer · Dir. Okema T. Moore"
-         data-items="images/LZ Poster as of 0402226.png,https://www.youtube.com/embed/ac5_FpLpdHI,https://www.youtube.com/embed/C3-xfMnacWI"
-         onclick="openLightbox(this)">
-      <img src="images/LZ Poster as of 0402226.png" alt="Love Zuri" />
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Film & Motion</p>
-        <p class="card-title">Love Zuri</p>
-        <p class="card-subtitle">Film open · Motion sequences · Co-Producer</p>
-        <span class="card-cta">View Project →</span>
-      </div>
-    </div>
-
-    <!-- Life After Release -->
-    <div class="portfolio-card"
-         data-cat="web"
-         data-title="Life After Release"
-         data-meta="Website design & development · Criminal justice nonprofit · DMV"
-         data-items="images/LAR Homepage.jpg"
-         onclick="openLightbox(this)">
-      <img src="images/LAR Homepage.jpg" alt="Life After Release" />
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Web & Brand</p>
-        <p class="card-title">Life After Release</p>
-        <p class="card-subtitle">Website · Criminal justice nonprofit</p>
-        <span class="card-cta">View Project →</span>
-      </div>
-    </div>
-
-    <!-- Mary & Main -->
-    <div class="portfolio-card"
-         data-cat="web"
-         data-title="Mary & Main"
-         data-meta="Website design & development · Cannabis dispensary · Capitol Heights, MD"
-         data-items="images/Mary and Main Homepage.jpg"
-         onclick="openLightbox(this)">
-      <img src="images/Mary and Main Homepage.jpg" alt="Mary and Main" />
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Web & Brand</p>
-        <p class="card-title">Mary & Main</p>
-        <p class="card-subtitle">Website · Cannabis dispensary · Capitol Heights, MD</p>
-        <span class="card-cta">View Project →</span>
-      </div>
-    </div>
-
-    <!-- Excellence Elevated NERC84 -->
-    <div class="portfolio-card no-click"
-         data-cat="event"
-         data-title="Excellence Elevated"
-         data-meta=""
-         data-items=""
-         style="background:#0d0d1a;">
-      <div class="placeholder-inner">
-        <p>NERC84</p>
-        <span>Coming Soon</span>
-      </div>
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Events & Organizations</p>
-        <p class="card-title">Excellence Elevated</p>
-        <p class="card-subtitle">84th NER Conference · Full brand system</p>
-      </div>
-    </div>
-
-    <!-- Excellence Unleashed NERC83 -->
-    <div class="portfolio-card no-click"
-         data-cat="event"
-         data-title="Excellence Unleashed"
-         data-meta=""
-         data-items=""
-         style="background:#0d0a14;">
-      <div class="placeholder-inner">
-        <p>NERC83</p>
-        <span>Coming Soon</span>
-      </div>
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Events & Organizations</p>
-        <p class="card-title">Excellence Unleashed</p>
-        <p class="card-subtitle">83rd NER Conference · Full brand system</p>
-      </div>
-    </div>
-
-    <!-- On The Green -->
-    <div class="portfolio-card no-click"
-         data-cat="web"
-         data-title="On The Green Golf Classic"
-         data-meta=""
-         data-items=""
-         style="background:#0d1a0d;">
-      <div class="placeholder-inner">
-        <p>ON THE GREEN</p>
-        <span>Coming Soon</span>
-      </div>
-      <div class="card-overlay"></div>
-      <div class="card-info">
-        <p class="card-category">Brand & Print</p>
-        <p class="card-title">On The Green Golf Classic</p>
-        <p class="card-subtitle">Event flyer · Wealth Watchers FL</p>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="portfolio-cta">
-    <p class="cta-text"><strong>Need design that works?</strong> From film posters to full brand systems — we build visuals that move people and mean something.</p>
-    <a href="https://outlook.office.com/book/The820Collective@the820co.com/s/aWmuAaQWBk6v4QCBlM2HXQ2" class="cta-btn">Start a Project</a>
-  </div>
-
-  <!-- ── Lightbox ── -->
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-header">
-      <div>
-        <p class="lightbox-title" id="lb-title"></p>
-        <p class="lightbox-meta" id="lb-meta"></p>
-      </div>
-      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    </div>
-
-    <div class="lightbox-stage">
-      <img class="lightbox-media" id="lb-img" src="" alt="" />
-      <iframe class="lightbox-video" id="lb-video" src="" allowfullscreen></iframe>
-    </div>
-
-    <div class="lightbox-nav" id="lb-nav">
-      <button onclick="changeSlide(-1)">←</button>
-      <div class="lightbox-dots" id="lb-dots"></div>
-      <span class="lightbox-counter" id="lb-counter"></span>
-      <button onclick="changeSlide(1)">→</button>
+  <!-- The Shower -->
+  <div class="portfolio-card"
+       data-cat="film"
+       data-title="The Shower"
+       data-meta="Poster suite + film open · Dir. Okema T. Moore"
+       data-items="images/The Shower 1.jpg,images/The Shower 2.jpg,images/The Shower 3.jpg,images/The Shower 4.jpg,https://www.youtube.com/embed/Lfj474zh0Uw"
+       data-captions="Film poster variant 1,Film poster variant 2,Film poster variant 3,Film poster variant 4,Film open sequence"
+       onclick="openLightbox(this)">
+    <img src="images/The Shower 2.jpg" alt="The Shower" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Film & Motion</p>
+      <p class="card-title">The Shower</p>
+      <p class="card-subtitle">Poster suite · Film open · Dir. Okema T. Moore</p>
+      <span class="card-cta">View Project →</span>
     </div>
   </div>
 
-  <script>
-    let items = [];
-    let current = 0;
+  <!-- Love Song -->
+  <div class="portfolio-card"
+       data-cat="film"
+       data-title="Love Song"
+       data-meta="Press materials · ABFF Official Selection 2026 · Dir. Love Nafi"
+       data-items="images/love-song-handbill-front.jpg,images/love-song-handbill-back.jpg"
+       data-captions="Press handbill front,Director bio handbill"
+       onclick="openLightbox(this)">
+    <img src="images/love-song-handbill-front.jpg" alt="Love Song" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Film & Motion</p>
+      <p class="card-title">Love Song</p>
+      <p class="card-subtitle">Press materials · ABFF Official Selection 2026</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
 
-    function isVideo(src) {
-      return src.includes('youtube.com') || src.includes('vimeo.com');
+  <!-- Love Zuri -->
+  <div class="portfolio-card"
+       data-cat="film"
+       data-title="Love Zuri"
+       data-meta="Film poster · Opening sequence · Motion graphics · Co-Producer · Dir. Okema T. Moore"
+       data-items="images/LZ Poster as of 0402226.png,https://www.youtube.com/embed/ac5_FpLpdHI,https://www.youtube.com/embed/_FmIYGYHK0A"
+       data-captions="Film poster,Film open sequence (Premiere Pro),Puzzle close sequence (After Effects)"
+       onclick="openLightbox(this)">
+    <img src="images/LZ Poster as of 0402226.png" alt="Love Zuri" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Film & Motion</p>
+      <p class="card-title">Love Zuri</p>
+      <p class="card-subtitle">Film poster · Motion sequences · Co-Producer</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
+
+  <!-- Life After Release -->
+  <div class="portfolio-card"
+       data-cat="web"
+       data-title="Life After Release"
+       data-meta="Website design and development · Criminal justice nonprofit · DMV"
+       data-items="images/LAR Homepage.jpg"
+       data-captions="Website homepage"
+       onclick="openLightbox(this)">
+    <img src="images/LAR Homepage.jpg" alt="Life After Release" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Web & Brand</p>
+      <p class="card-title">Life After Release</p>
+      <p class="card-subtitle">Website · Criminal justice nonprofit · DMV</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
+
+  <!-- Mary & Main -->
+  <div class="portfolio-card"
+       data-cat="web"
+       data-title="Mary & Main"
+       data-meta="Website design and development · Cannabis dispensary · Capitol Heights, MD"
+       data-items="images/Mary and Main Homepage.jpg"
+       data-captions="Website homepage"
+       onclick="openLightbox(this)">
+    <img src="images/Mary and Main Homepage.jpg" alt="Mary and Main" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Web & Brand</p>
+      <p class="card-title">Mary & Main</p>
+      <p class="card-subtitle">Website · Cannabis dispensary · Capitol Heights, MD</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
+
+  <!-- Qiana for Clerk -->
+  <div class="portfolio-card"
+       data-cat="web"
+       data-title="Qiana Johnson for Clerk"
+       data-meta="Website design and brand · Political campaign · Prince George's County, MD"
+       data-items="images/QianaForClerkWebsite.jpg"
+       data-captions="Campaign website homepage"
+       onclick="openLightbox(this)">
+    <img src="images/QianaForClerkWebsite.jpg" alt="Qiana for Clerk" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Web & Brand</p>
+      <p class="card-title">Qiana Johnson for Clerk</p>
+      <p class="card-subtitle">Campaign website · Prince George's County, MD</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
+
+  <!-- Excellence Elevated NERC84 -->
+  <div class="portfolio-card"
+       data-cat="event"
+       data-title="Excellence Elevated"
+       data-meta="84th Northeastern Region Conference · Full brand system · Sigma Gamma Rho Sorority, Inc. · Springfield, MA 2026"
+       data-items="images/EUlogo.png,images/EUluncheon.png,images/EUlifemember.jpg"
+       data-captions="Conference logo,Excellence in Bloom — Annie Neville Awards Luncheon flyer,Life Member Rooftop Party flyer"
+       onclick="openLightbox(this)">
+    <img src="images/EUlogo.png" alt="Excellence Elevated NERC84" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Events & Organizations</p>
+      <p class="card-title">Excellence Elevated</p>
+      <p class="card-subtitle">84th NER Conference · Full brand system · 2026</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
+
+  <!-- Excellence Unleashed NERC83 -->
+  <div class="portfolio-card"
+       data-cat="event"
+       data-title="Excellence Unleashed"
+       data-meta="83rd Northeastern Region Conference · Full brand system · Sigma Gamma Rho Sorority, Inc. · Norfolk, VA 2025. Scope included conference logo, event flyers, 20x10ft tradeshow display, elevator wraps, electronic billboards, and hotel key cards."
+       data-items="images/EUEFULLLOGO.png,images/EUElogo.jpg,images/EUEInterfaith.png,images/EUEPepRally.png"
+       data-captions="Full conference logo,Torch and flame icon mark,Interfaith Experience Breakfast flyer,Day of Service Pep Rally flyer"
+       onclick="openLightbox(this)">
+    <img src="images/EUEFULLLOGO.png" alt="Excellence Unleashed NERC83" />
+    <div class="card-overlay"></div>
+    <div class="card-info">
+      <p class="card-category">Events & Organizations</p>
+      <p class="card-title">Excellence Unleashed</p>
+      <p class="card-subtitle">83rd NER Conference · Full brand system · 2025</p>
+      <span class="card-cta">View Project →</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="portfolio-cta">
+  <p class="cta-text"><strong>Need design that works?</strong> From film graphics to full brand systems. If you can dream it, we can probably build it.</p>
+  <a href="mailto:hello@the820co.com" class="cta-btn">Get in Touch</a>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-header">
+    <div>
+      <p class="lightbox-title" id="lb-title"></p>
+      <p class="lightbox-meta" id="lb-meta"></p>
+    </div>
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  </div>
+  <div class="lightbox-stage">
+    <img class="lightbox-media" id="lb-img" src="" alt="" />
+    <iframe class="lightbox-video" id="lb-video" src="" allowfullscreen></iframe>
+    <p class="lightbox-caption" id="lb-caption"></p>
+  </div>
+  <div class="lightbox-nav" id="lb-nav">
+    <button onclick="changeSlide(-1)">←</button>
+    <div class="lightbox-dots" id="lb-dots"></div>
+    <span class="lightbox-counter" id="lb-counter"></span>
+    <button onclick="changeSlide(1)">→</button>
+  </div>
+</div>
+
+<script>
+  let items = [], captions = [], current = 0;
+
+  function isVideo(src) { return src.includes('youtube.com') || src.includes('vimeo.com'); }
+
+  function openLightbox(card) {
+    const raw = card.dataset.items;
+    if (!raw || !raw.trim()) return;
+    items = raw.split(',').map(s => s.trim()).filter(Boolean);
+    captions = (card.dataset.captions || '').split(',').map(s => s.trim());
+    if (!items.length) return;
+    document.getElementById('lb-title').textContent = card.dataset.title;
+    document.getElementById('lb-meta').textContent = card.dataset.meta;
+    current = 0;
+    buildDots();
+    renderSlide();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+    document.getElementById('lb-video').src = '';
+  }
+
+  function renderSlide() {
+    const src = items[current];
+    const img = document.getElementById('lb-img');
+    const vid = document.getElementById('lb-video');
+    if (isVideo(src)) {
+      img.style.display = 'none';
+      vid.style.display = 'block';
+      vid.src = src;
+    } else {
+      vid.style.display = 'none';
+      vid.src = '';
+      img.style.display = 'block';
+      img.src = src;
     }
+    document.getElementById('lb-caption').textContent = captions[current] || '';
+    document.getElementById('lb-counter').textContent = items.length > 1 ? `${current + 1} / ${items.length}` : '';
+    document.querySelectorAll('#lb-dots span').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('lb-nav').classList.toggle('visible', items.length > 1);
+  }
 
-    function openLightbox(card) {
-      const raw = card.dataset.items;
-      if (!raw || !raw.trim()) return;
-      items = raw.split(',').map(s => s.trim()).filter(Boolean);
-      if (!items.length) return;
-
-      document.getElementById('lb-title').textContent = card.dataset.title;
-      document.getElementById('lb-meta').textContent = card.dataset.meta;
-
-      current = 0;
-      buildDots();
-      renderSlide();
-
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-      document.getElementById('lb-video').src = '';
-    }
-
-    function renderSlide() {
-      const src = items[current];
-      const img = document.getElementById('lb-img');
-      const vid = document.getElementById('lb-video');
-
-      if (isVideo(src)) {
-        img.style.display = 'none';
-        vid.style.display = 'block';
-        vid.src = src;
-      } else {
-        vid.style.display = 'none';
-        vid.src = '';
-        img.style.display = 'block';
-        img.src = src;
-      }
-
-      const counter = document.getElementById('lb-counter');
-      counter.textContent = items.length > 1 ? `${current + 1} / ${items.length}` : '';
-
-      document.querySelectorAll('#lb-dots span').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
-
-      const nav = document.getElementById('lb-nav');
-      nav.classList.toggle('visible', items.length > 1);
-    }
-
-    function buildDots() {
-      const container = document.getElementById('lb-dots');
-      container.innerHTML = '';
-      items.forEach((_, i) => {
-        const dot = document.createElement('span');
-        if (i === 0) dot.classList.add('active');
-        dot.onclick = () => { current = i; renderSlide(); };
-        container.appendChild(dot);
-      });
-    }
-
-    function changeSlide(dir) {
-      current = (current + dir + items.length) % items.length;
-      renderSlide();
-    }
-
-    function filterWork(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.portfolio-card').forEach(card => {
-        card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
-      });
-    }
-
-    // Close on backdrop click
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-      if (e.target === this) closeLightbox();
+  function buildDots() {
+    const c = document.getElementById('lb-dots');
+    c.innerHTML = '';
+    items.forEach((_, i) => {
+      const d = document.createElement('span');
+      if (i === 0) d.classList.add('active');
+      d.onclick = () => { current = i; renderSlide(); };
+      c.appendChild(d);
     });
+  }
 
-    // Keyboard
-    document.addEventListener('keydown', e => {
-      if (!document.getElementById('lightbox').classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') changeSlide(1);
-      if (e.key === 'ArrowLeft') changeSlide(-1);
+  function changeSlide(dir) { current = (current + dir + items.length) % items.length; renderSlide(); }
+
+  function filterWork(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
     });
-  </script>
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') changeSlide(1);
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+  });
+</script>
+
+<footer>
+  <a href="index.html" class="footer-logo">820 <span>COLLECTIVE</span></a>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="portfolio.html">Work</a>
+    <a href="team.html">About</a>
+    <a href="network.html">Network</a>
+  </div>
+  <div class="footer-right">
+    <a href="mailto:hello@the820co.com">Get in Touch</a>
+    <a href="https://instagram.com/the820co" target="_blank">Instagram</a>
+    <a href="https://facebook.com/the820co" target="_blank">Facebook</a>
+    <a href="https://linkedin.com/company/the820co" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-copy">© 2026 The 820 Collective. All rights reserved.</div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  var toggle=document.querySelector(".nav-toggle");
+  var links=document.querySelector(".nav-links");
+  if(toggle){ toggle.addEventListener("click",function(){ toggle.classList.toggle("open"); links.classList.toggle("open"); }); }
+});
+</script>
 
 </body>
 </html>
